@@ -1,10 +1,11 @@
 {
     "author_list": "The authors of the paper (e.g. `Doe et al.` or `Doe and Deo`)",
     "journal": "Journal where the paper is going to be published",
+    "short_journal": "{{ cookiecutter.journal.lower().split() | map('first') | join('') }}",
     "year": "year of publication",
     "author_name": "Author of the repository (can be different from author_list)",
     "short_title": "",
-    "repo_name": "{{ cookiecutter.author_list.lower().replace(' ', '') + '_' + cookiecutter.journal.lower() + '_' + cookiecutter.year + '_' + cookiecutter.short_title }}",
+    "repo_name": "{{ cookiecutter.author_list.lower().replace(' ', '') + '_' + cookiecutter.short_journal + '_' + cookiecutter.year + '_' + cookiecutter.short_title }}",
     "github_username": "Destination github org or username",
     "zenodo_data_id": "ID for zenodo dataset archive",
     "open_source_license": ["MIT", "BSD-3-Clause", "No license file"],
