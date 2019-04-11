@@ -10,7 +10,7 @@ Note the id of your dataset (the number at the end of the url like this https://
 
 ### Requirements to use the cookiecutter template:
 -----------
- - Python 2.7 or 3.5
+ - Python 3.6
  - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0: This can be installed with pip by or conda depending on how you manage your Python packages:
 
 ``` bash
@@ -36,12 +36,11 @@ The installation dialog will ask for a few inputs:
 - `journal`: Journal in which the article will be published, like `nature`.
 - `year`: Year of publication.
 - `author_name`: Your name.
-- `short_title`: Optional. If you want your repository to have some short description in the title (e.g. `author_etal_nature_2018_stratosphere`) enter `stratosphere` here. Otherwise just press enter.
+- `pkg_name`: Python package name. Also, if you want your repository to have some short description in the title (e.g. `author_etal_nature_2018_stratosphere`) enter `stratosphere` here. Otherwise just press enter.
 - `repo_name`: This will be the name of the resulting github repository. Normally just press enter to confirm.
 - `github_username`: Your username for [github](https://github.com).
 - `open_source_license`: Chose a license for your package. Currently available licenses are: "MIT" and "BSD-3-Clause", details can be found [here]().
 - `zenodo_data_id`: The Zenodo id for your uploaded datasets (see above)
-- `python_interpreter`: Chose your python version. In most cases just press enter to chose python 3.
 
 ### The resulting directory structure
 ------------
@@ -49,36 +48,31 @@ The installation dialog will ask for a few inputs:
 This will set up a project folder with the following structure in the current directory:
 
 ```
-├── setup.py
-├── README.md             <- Readme for this paper
+repo_name
+├── docs                  <- Document directory
+│   ├── latex
+│   └── notebooks
+├── src                   <- Source code directorey
+│   ├── scripts
+│   │   ├── download_zenodo_files.sh <- Shell script to automatically download zenodo files.
+│   │   ├── parse_filenames.py
+│   │   └── setup.sh                 <- Shell script to initialize new project.
+│   └── pkg_name          <- Installable python package
+│       ├── __init__.py
+│       ├── _version.py              <- Version string initialized here
+│       └── dummy.py                 <- Example python module file. These contain your installable functions
+├── tests                 <- Unit test directory
+│   └── test_dummy.py
 ├── LICENSE
+├── README.md             <- Readme for this paper
+├── setup.py
+├── setup.cfg             <- Python package setup files
 ├── environment.yml       <- Conda environment file. Create environment with
 │                           `conda env create -f environment.yml`
-├── .travis.yml           <- Conda environment file. Create environment with
-│                           `conda env create -f environment.yml`
-├── .stickler.yml         <- Conda environment file. Create environment with
-│                           `conda env create -f environment.yml`
-├── scripts              
-│   ├── setup.sh          <- Shell script to initialize new project.
-│   └── download_zenodo_files <- Shell script to automatically download zenodo files.
-│
-├── notebooks             <- Jupyter notebooks that reproduce all figures, tables etc in your study
-│                              from the data in the zenodo archive.
-│
-├── data                  <- data directory containing downloaded zenodo file
-│
-├── ci                    <- Files for continous integration; see travis-ci.com
-│
-└──  repo_name         <- Source code for use in this project.
-    ├── __init__.py       <- Makes `repo_name` a Python module
-    │
-    ├── dummy.py          <- Example python module file. These contain your installable functions
-    |
-    └── tests
-        └── test_dummy.py
+├── .travis.yml           <- Travis CI configuration
+└── .stickler.yml         <- Stickler CI configuration
+
 ```
-
-
 
 
 The directory includes a simple setup script, which will create a github repository and commit the current state as initial commit.
@@ -109,5 +103,7 @@ Then commit and tag your git repository and push to github, zenodo will automati
 Head over to [travis](https://travis-ci.org/), ...
 For each service log in with your github account and follow the instructions for activating your github repo. It can take a while until new repos show up in travis. Just get a cup of coffee or have a nice chat with your office mate.
 
-<!-- #### Binder deployment
-Not implemented yet -->
+#### Future
+
+- [ ] Dockerfile
+- [ ] Binder deployment

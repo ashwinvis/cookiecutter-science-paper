@@ -19,7 +19,7 @@ before_install:
   - conda info -a
 
 install:
-  - conda env create -n test_env --file ci/requirements-$CONDA_ENV.yml
+  - conda env create -n test_env --file .ci/requirements-$CONDA_ENV.yml
   - source activate test_env
   - conda list
   - pip install --no-deps -e .
@@ -30,8 +30,8 @@ before_script:
 script:
   - which python
   - python --version
-  - python -OO -c "import {{ cookiecutter.repo_name }}"
-  - py.test {{ cookiecutter.repo_name }} --cov={{ cookiecutter.repo_name }} --cov-config ci/.coveragerc --cov-report term-missing --verbose $EXTRA_FLAGS;
+  - python -OO -c "import {{ cookiecutter.pkg_name }}"
+  - py.test {{ cookiecutter.repo_name }} --cov=src/{{ cookiecutter.pkg_name }} --cov-config .ci/.coveragerc --cov-report term-missing --verbose $EXTRA_FLAGS;
 
 after_success:
   - codecov
